@@ -4,7 +4,8 @@
   "description": "Project Title: Epic Food Fails: A Recipe for Disaster",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
   },
   "repository": {
     "type": "git",
@@ -15,5 +16,10 @@
   "bugs": {
     "url": "https://github.com/kalviumcommunity/S74_A_Recipe_for_Disaster/issues"
   },
-  "homepage": "https://github.com/kalviumcommunity/S74_A_Recipe_for_Disaster#readme"
+  "homepage": "https://github.com/kalviumcommunity/S74_A_Recipe_for_Disaster#readme",
+  "dependencies": {
+    "express": "^4.21.2"
+  },
+  "devDependencies": {},
+  "keywords": []
 }

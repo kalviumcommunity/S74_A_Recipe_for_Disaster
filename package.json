@@ -18,8 +18,9 @@
   },
   "homepage": "https://github.com/kalviumcommunity/S74_A_Recipe_for_Disaster#readme",
   "dependencies": {
-    "express": "^4.21.2"
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "mongoose": "^8.10.0"
   },
-  "devDependencies": {},
   "keywords": []
 }

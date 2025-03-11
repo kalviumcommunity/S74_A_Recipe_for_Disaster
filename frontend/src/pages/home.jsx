@@ -4,6 +4,7 @@ import { FaMagic, FaUtensils, FaFireAlt } from "react-icons/fa";
 import React from "react";
 import FoodCard from "../components/foodCard"; // Import the FoodCard component
 import Header from "../components/header";
+import { Link } from "react-router-dom";
 
 // Dummy food data (replace with real data from API)
 const foodItems = [
@@ -79,8 +80,10 @@ function Home() {
           <span>Explore Recipes</span>
         </button>
         <button className="px-6 py-3 bg-red-600 text-xl font-bold rounded-xl shadow-lg hover:bg-red-700 transition-transform transform hover:scale-110 flex items-center space-x-2">
-          <FaFireAlt />
-          <span>Submit Yours</span>
+          <Link to="/createrecipe">
+          <FaFireAlt className="inline-block align-middle" />
+          <span className="inline-block align-middle">Submit Yours</span>
+          </Link>
         </button>
       </motion.div>
 

@@ -1,88 +1,82 @@
-import React from "react";
+import axios from "axios";
 import { useState } from "react";
-import Header from "../components/header";
+import React from "react";
+import { useNavigate } from "react-router-dom";
 
-export default function Createrecipe() {
-    const [recipe, setRecipe] = useState({
-      name: "",
-      ingredients: "",
-      description: "",
-      image: null,
-    });
-  
-    const handleChange = (e) => {
-      const { name, value } = e.target;
-      setRecipe({ ...recipe, [name]: value });
-    };
-  
-    const handleImageChange = (e) => {
-      setRecipe({ ...recipe, image: e.target.files[0] });
-    };
-  
-    const handleSubmit = (e) => {
-      e.preventDefault();
-      console.log("Submitted Recipe:", recipe);
-      // Add API call or state management logic here
-    };
-  
-    return (
-        <>
-        <Header/>
-        <div className="max-w-200 max-h-400 mx-auto p-5 mt-50 shadow-lg rounded-2xl">
-          <div>
-            <h2 className="text-xl font-bold mb-4">Submit Your Epic Food Fail</h2>
-            <form onSubmit={handleSubmit} className="space-y-4">
-              <label htmlFor="name" className="block font-medium">Recipe Name</label>
-              <input
-                type="text"
-                id="name"
-                name="name"
-                placeholder="Recipe Name"
-                value={recipe.name}
-                onChange={handleChange}
-                required
-                className="block w-full p-2 border rounded"
-              />
-              
-              <label htmlFor="ingredients" className="block font-medium">Ingredients</label>
-              <textarea
-                id="ingredients"
-                name="ingredients"
-                placeholder="Ingredients (comma-separated)"
-                value={recipe.ingredients}
-                onChange={handleChange}
-                required
-                className="block w-full p-2 border rounded"
-              />
-              
-              <label htmlFor="description" className="block font-medium">Description</label>
-              <textarea
-                id="description"
-                name="description"
-                placeholder="Describe your bizarre creation"
-                value={recipe.description}
-                onChange={handleChange}
-                required
-                className="block w-full p-2 border rounded"
-              />
-              
-              <label htmlFor="image" className="block font-medium">Upload Image</label>
-              <input 
-                type="file" 
-                id="image" 
-                accept="image/*" 
-                onChange={handleImageChange} 
-                className="block w-full p-2 border rounded"
-              />
+const CreateRecipe = () => {
+  const [name, setName] = useState("");
+  const [ingredients, setIngredients] = useState("");
+  const [description, setDescription] = useState("");
+  const [image, setImage] = useState(null);
+  const navigate = useNavigate();
 
-              
-              
-              <button type="submit" className="w-full bg-green-500 text-white p-2 mt-4 rounded">
-                Submit Recipe
-              </button>
-            </form>
-          </div>
-        </div>
-        </>
-    );
-}
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    const formData = new FormData();
+    formData.append("name", name);
+    formData.append("ingredients", ingredients);
+    formData.append("description", description);
+    formData.append("image", image);
+
+    try {
+      const response = await axios.post(
+        "http://localhost:3000/api/recipe/create-recipe",
+        formData,
+        {
+          headers: { "Content-Type": "multipart/form-data" },
+        }
+      );
+      console.log("Response:", response.data);
+      alert("Recipe Created Successfully!");
+      navigate("/");
+    } catch (err) {
+      console.error("Error:", err.response ? err.response.data : err.message);
+      alert("Unable to create recipe");
+    }
+  };
+
+  return (
+    <div className="flex items-center justify-center min-h-screen bg-gray-100">
+      <div className="max-w-md mx-auto p-6 bg-white text-black rounded-lg shadow-md">
+        <h2 className="text-2xl font-bold mb-4 text-center">Submit Recipe</h2>
+        <form onSubmit={handleSubmit}>
+          <input
+            type="text"
+            placeholder="Recipe Name"
+            className="w-full p-2 border mb-4 rounded"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            required
+          />
+          <textarea
+            placeholder="Ingredients (comma-separated)"
+            className="w-full p-2 border mb-4 rounded"
+            value={ingredients}
+            onChange={(e) => setIngredients(e.target.value)}
+            required
+          />
+          <textarea
+            placeholder="Describe your recipe"
+            className="w-full p-2 border mb-4 rounded"
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
+            required
+          />
+          <input
+            type="file"
+            accept="image/*"
+            className="w-full p-2 border mb-4 rounded"
+            onChange={(e) => setImage(e.target.files[0])}
+            required
+          />
+          <button className="w-full bg-green-600 text-white p-2 rounded-md">
+            Submit Recipe
+          </button>
+        </form>
+      </div>
+    </div>
+  );
+};
+
+export default CreateRecipe;

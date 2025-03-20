@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const FoodFail = require('./models/Schema');
+const FoodFail = require('../models/Schema');
 
 // ✅ GET all food fails
 router.get('/food-fails', (req, res) => {

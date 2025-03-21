@@ -14,6 +14,7 @@ const PORT = process.env.PORT || 3000;
 
 // Middleware
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 app.use(cors({ origin: "http://localhost:5173", credentials: true }));
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
@@ -23,19 +24,20 @@ mongoose
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })
-  .then(() => console.log("Connected to MongoDB"))
-  .catch((err) => console.error("MongoDB Connection Error:", err));
+  .then(() => console.log("✅ Connected to MongoDB"))
+  .catch((err) => console.error("❌ MongoDB Connection Error:", err));
 
 // API Routes
 app.use("/api/foodfail", foodFailRoutes);
 app.use("/api/user", userRoutes);
 app.use("/api/recipe", recipeRoutes);
 
+
 app.get("/", (req, res) => {
-  res.json("Server is running...");
+  res.json("🚀 Server is running...");
 });
 
 // Start Server
 app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
+  console.log(`🚀 Server running on port ${PORT}`);
 });

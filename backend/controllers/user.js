@@ -68,4 +68,60 @@ router.post('/signup', async (req, res) => {
     }
 });
 
+
+
+// Get User Profile
+
+router.get("/profile", async (req, res) => {
+    try {
+      const user = await User.findOne(req.email).select("-password"); // Exclude password field
+      if (!user) return res.status(404).json({ error: "User not found" });
+  
+      res.json({ username: user.username, email: user.email });
+    } catch (error) {
+      console.error("Profile Fetch Error:", error);
+      res.status(500).json({ error: "Server error" });
+    }
+  
+
+
+});
+
+router.get("/update-email/:email", async (req,res)=>{
+    try {
+        const email =  (req.params.email)
+        const user = await User.findOne({email})
+        res.json(user)
+
+    } catch (error) {
+        res.json("error")
+    }
+})
+
+router.put("/update-email/:email", async (req, res) => {
+    try {
+        const email = req.params.email
+        const { newEmail, password } = req.body;
+console.log(email,newEmail)
+        // Find user by email instead of using req.userId
+        const user = await User.findOne({ email });
+
+        if (!user) {
+            return res.status(404).json({ message: "User not found" });
+        }
+
+
+        user.email = newEmail;
+        await user.save();
+
+        res.json({ message: "Email updated successfully" });
+    } catch (error) {
+        console.error("Update Email Error:", error);
+        res.status(500).json({ message: "Server error" });
+    }
+})
+
+
+
+
 module.exports = router;

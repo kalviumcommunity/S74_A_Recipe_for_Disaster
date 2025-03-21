@@ -9,8 +9,6 @@ const foodFailSchema = new mongoose.Schema({
         required: true 
     },
     submittedBy: { type: String, default: 'Anonymous' },
-    username: { type: String, required: true },
-    password: { type: String, required: true }, // In real applications, hash the password!
     createdAt: { type: Date, default: Date.now }
 });
 

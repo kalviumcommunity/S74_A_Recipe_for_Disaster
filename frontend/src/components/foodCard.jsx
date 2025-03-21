@@ -7,4 +7,4 @@ export default function FoodCard({ image, name, rating }) {
       <p>Rating: {rating} ⭐</p>
     </div>
   );
-}
+}s

@@ -76,8 +76,11 @@ function Home() {
           onMouseEnter={() => setHovered(true)}
           onMouseLeave={() => setHovered(false)}
           >
+             <Link to="/explore" className="flex items-center space-x-2">
+            
           <FaUtensils />
           <span>Explore Recipes</span>
+            </Link>
         </button>
         <button className="px-6 py-3 bg-red-600 text-xl font-bold rounded-xl shadow-lg hover:bg-red-700 transition-transform transform hover:scale-110 flex items-center space-x-2">
           <Link to="/createrecipe">

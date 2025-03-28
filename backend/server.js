@@ -8,6 +8,7 @@ const path = require("path");
 const foodFailRoutes = require("./controllers/food-fail");
 const userRoutes = require("./controllers/user");
 const recipeRoutes = require("./controllers/creatrecipe");
+const exploreRoutes = require("./controllers/explore")
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -17,6 +18,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors({ origin: "http://localhost:5173", credentials: true }));
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
+
 
 // Connect to MongoDB
 mongoose
@@ -31,6 +33,7 @@ mongoose
 app.use("/api/foodfail", foodFailRoutes);
 app.use("/api/user", userRoutes);
 app.use("/api/recipe", recipeRoutes);
+app.use("/api/explore", exploreRoutes);
 
 
 app.get("/", (req, res) => {
